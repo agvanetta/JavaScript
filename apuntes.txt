@@ -1,0 +1,25 @@
+modificarJsonConForEach:function(){
+    this.bicicletas.forEach(bici=>{
+    const modificada= bici.largo=150;
+    archivo.escribirJson('bicicletas',this.bicicletas);
+  })
+}
+
+
+_______
+
+aumentarPorcentaje: function(porcientoAAumentar){
+       this.articulos.forEach(elemento => elemento.precioEnUsd *= (porcientoAAumentar/100 +1))
+    }
+
+(bicis.puntaje += 100) es igual a (bicis.puntaje = bicis.puntaje + 100) . forEach itera sobre el elemento/objeto, no modifica el original.
+
+eso lo podes guardar en una variable y escribirlo con 
+fs.writeFileSync(__dirname+"/NOMBRE.json",JSON.stringify("DATO")) */    // DATO es la variable que tiene la info que quiero escribir en otro lado
+
+EL QUE HICE YO : 
+
+modificarJsonConForEach:function(){
+    carrera.bicicletas.forEach ( bicis => bicis.puntaje += 100); //  escribirJson: function (nombreArchivo, datos)
+    traerElJsonHelper.escribirJson("JsonHelper", this.bicicletas); // el escribirJson BORRA Y ESCRIBE. Por eso mandamos toda la info de nuevo
+  }

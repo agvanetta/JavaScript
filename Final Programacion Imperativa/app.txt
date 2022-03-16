@@ -1,0 +1,120 @@
+// Te proveemos la siguiente plantilla que tiene dos partes:
+// - Desarrollo de las consignas, donde escribirás el código que responda a los enunciados
+// - Ejecución de las consignas, donde ejecutarás los métodos correspondientes mostrando por consola sus resultados
+
+/*******************************/
+/* Desarrollo de las consignas */
+/*******************************/
+
+// 1.
+const traerJsonHelper = require(__dirname + "/JsonHelper");
+const arrayDePeliculas = traerJsonHelper.leerJson("peliculas");
+// 2.
+const gestionDePeliculas = {
+  // 2.A.
+  peliculas: arrayDePeliculas,
+  // 2.B.
+  listarPeliculas: function (arrayDePelis) {
+    arrayDePelis.forEach((pelis) =>
+      console.log(
+        pelis.titulo +
+          ", de  " +
+          pelis.director +
+          ". Duracion: " +
+          pelis.duracionEnMinutos +
+          " minutos, " +
+          (pelis.ganoOscar ? " Con premiada" : " Sin Premios ") +
+          "(" +
+          pelis.calificacionIMDB +
+          " / 10 en IMDB)"
+      )
+    );
+  },
+  // 2.C.
+  buscarPorId: function (numeroDeId) {
+    return this.peliculas.find((pelis) => pelis.id == numeroDeId);
+  },
+  // 2.D
+  peliculasNoPremiadas: function () {
+    return this.peliculas.filter((pelis) => pelis.ganoOscar === false);
+  },
+  // 2.E.
+  filtrarPorCalificacion: function (calificacionMin, calificacionMax) {
+    return this.peliculas.filter(function (bicis) {
+      return (
+        bicis.calificacionIMDB <= calificacionMax &&
+        bicis.calificacionIMDB >= calificacionMin
+      );
+    });
+  },
+  // 2.F.
+  ordenarPorDuracion: function (arrayDePelis) {
+    return this.peliculas.sort(
+      (a, b) => b.duracionEnMinutos - a.duracionEnMinutos
+    );
+  },
+
+  // 2.G.
+  duracionPromedio: function () {
+    const totalMinutos = this.peliculas.reduce(
+      (ac, num) => ac + num.duracionEnMinutos,
+      0
+    );
+    const resultado = totalMinutos / this.peliculas.length;
+    return (
+      "La duración promedio en minutos de las películas es de: " +
+      resultado +
+      " minutos"
+    );
+  },
+  // 2.H.
+  premiarPeliculaPorId: function (idAbuscar) {
+    const pelicula = this.buscarPorId(idAbuscar)
+    pelicula.ganoOscar = true;
+    traerJsonHelper.escribirJson("JsonHelper", this.peliculas)
+    return this.peliculas;
+  },
+  // 2.I.
+  eliminarPorId: function (numeroDeId) {
+    const peliPorId = this.buscarPorId(numeroDeId);
+    if (peliPorId === this.peliculas.id) {
+
+    }
+  },
+};
+/******************************/
+/* Ejecución de las consignas */
+/******************************/
+
+console.log("***** 2.B. *****");
+const peliculasListadas = gestionDePeliculas.listarPeliculas(arrayDePeliculas);
+peliculasListadas;
+console.log("***** 2.C. *****");
+const buscarID = gestionDePeliculas.buscarPorId(2);
+console.table([buscarID]);
+console.log("****************\n");
+console.log("***** 2.D. *****");
+const peliculasSinPremios = gestionDePeliculas.peliculasNoPremiadas();
+console.table(peliculasSinPremios);
+console.log("****************\n");
+console.log("***** 2.E. *****");
+const filtrarPorCarlf = gestionDePeliculas.filtrarPorCalificacion(6, 8);
+console.table(filtrarPorCarlf);
+console.log("****************\n");
+console.log("***** 2.F. *****");
+const ordenDeMayorAMenosPorDuracion = gestionDePeliculas.ordenarPorDuracion();
+console.table(ordenDeMayorAMenosPorDuracion);
+console.log("****************\n");
+console.log("***** 2.G. *****");
+const laDuracionPromedioEs = gestionDePeliculas.duracionPromedio();
+console.log(laDuracionPromedioEs);
+console.log("****************\n");
+
+console.log("***** 2.H. *****");
+const premiarPelicula = gestionDePeliculas.premiarPeliculaPorId(1);
+console.table (premiarPelicula);
+console.log("****************\n");
+
+console.log("***** 2.I. *****");
+// Ejecución aquí
+console.log("****************\n");
